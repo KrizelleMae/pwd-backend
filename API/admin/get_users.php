@@ -1,8 +1,8 @@
 <?php
 
-include './config.php';
+include '../../config.php';
 
-$stmt = $db->prepare('SELECT * from pwdprofile');
+$stmt = $db->prepare('SELECT * from user');
 $stmt->execute();
 $result = $stmt->get_result();
 $response = $result->fetch_all(MYSQLI_ASSOC);

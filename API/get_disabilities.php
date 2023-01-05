@@ -1,13 +1,13 @@
 <?php
 
-include './config.php';
+include '../config.php';
 
 // $stmt = $db->prepare('SELECT * from user where role == 3');
-$stmt = $db->prepare('SELECT * from companyprofile');
+$stmt = $db->prepare('SELECT * from job_for');
 $stmt->execute();
 $result = $stmt->get_result();
 $response = $result->fetch_all(MYSQLI_ASSOC);
 
 echo json_encode($response);
-
+$db->close();
 ?>

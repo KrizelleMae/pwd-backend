@@ -1,6 +1,6 @@
 <?php
 
-include './config.php';
+include '../config.php';
 
 $user = json_decode(file_get_contents('php://input'));
 $email = $user->email;
