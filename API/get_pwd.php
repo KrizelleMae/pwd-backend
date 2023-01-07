@@ -2,7 +2,7 @@
 
 include '../config.php';
 
-$stmt = $db->prepare('SELECT * from job_description');
+$stmt = $db->prepare('SELECT * from pwdprofile');
 $stmt->execute();
 $result = $stmt->get_result();
 $response = $result->fetch_all(MYSQLI_ASSOC);

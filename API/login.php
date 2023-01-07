@@ -17,7 +17,19 @@ if (mysqli_num_rows($result) > 0) {
 
         if(password_verify($password, $user['PASSWORD'])) {
             // IF TAMA PASSWORD  
-            $data = ['status' => 1, "id" => $user['USER_ID'], 'role' => $user['ROLE']];
+
+            if($user['ROLE'] === 3) {
+
+                $getUser = $db->prepare("SELECT * from companyprofile where FK_USER_ID = ?;");
+                $getUser->bind_param("s", $user['USER_ID']);
+                $getUser->execute();
+                $res = $getUser->get_result()->fetch_assoc();
+
+                $data = ['status' => 1, "id" => $user['USER_ID'], "companyId" => $res['COMPANY_ID'],'role' => $user['ROLE']];
+
+            } else {
+                $data = ['status' => 1, "id" => $user['USER_ID'], 'role' => $user['ROLE']];
+            }
 
         }else {
 

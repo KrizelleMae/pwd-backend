@@ -36,7 +36,15 @@ if (mysqli_num_rows($res) > 0) {
         $registration->bind_param('ssssssssssi', $companyName, $address, $compEmail, $regNum, $incDate, $telNum, $website, $firstname, $lastname, $position, $userId);    
     
         if($registration->execute()) {
-            $data = ['status' => 1, 'message' => "Successful registration.", 'id' => $userId, 'role' => $role];
+
+            
+            $getUser = $db->prepare("SELECT * from companyprofile where FK_USER_ID = ?;");
+            $getUser->bind_param("i", $userId);
+            $getUser->execute();
+            $res = $getUser->get_result()->fetch_assoc();
+
+
+            $data = ['status' => 1, 'message' => "Successful registration.", "id" => $userId,'companyId' => $res['COMPANY_ID'], 'role' => $role];
         } else {
             $data = ['status' => 0, 'message' => "Failed to update company profile.", ];
         }
